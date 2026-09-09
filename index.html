@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de Gafas | SAVIG Optical</title>
+<meta name="description" content="Catálogo visual de monturas de caballero.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-mark">S</span><span>SAVIG <small>OPTICAL</small></span></a>
+  <nav><a href="#catalogo">Catálogo</a><a href="#info">Información</a></nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">COLECCIÓN · CABALLERO</p>
+    <h1>Monturas que definen<br><em>tu estilo.</em></h1>
+    <p class="lead">Explora nuestra selección de monturas y encuentra el modelo que mejor representa tu personalidad.</p>
+    <a class="hero-btn" href="#catalogo">Ver colección <span>↓</span></a>
+  </div>
+  <div class="hero-art">
+    <img src="assets/modelo-02.webp" alt="Montura de gafas de la colección">
+  </div>
+</section>
+
+<section class="catalog-section" id="catalogo">
+  <div class="section-head">
+    <div><p class="eyebrow">CATÁLOGO</p><h2>Monturas de caballero</h2></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="toolbar">
+    <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Buscar por modelo o código…"></label>
+    <select id="sort" aria-label="Ordenar">
+      <option value="asc">Orden: 01 → 80</option>
+      <option value="desc">Orden: 80 → 01</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>No encontramos modelos con esa búsqueda.</div>
+</section>
+
+<section class="info" id="info">
+  <div><p class="eyebrow">SAVIG OPTICAL</p><h2>Una colección para mirar diferente.</h2></div>
+  <p>Catálogo visual basado en el material proporcionado. Los modelos se presentan como referencia de exhibición; consulta disponibilidad, colores y medidas directamente con la óptica.</p>
+</section>
+</main>
+
+<footer><span>© 2026 SAVIG Optical</span><span>Catálogo de monturas · Caballero</span></footer>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <button class="close" id="close" aria-label="Cerrar">×</button>
+  <div class="modal-card"><img id="modalImg" alt=""><div><p class="eyebrow">DETALLE DEL MODELO</p><h3 id="modalName"></h3><p id="modalCode"></p></div></div>
+</div>
+<script>
+const products=[{"id": 1, "name": "Montura 01", "image": "assets/modelo-01.webp", "code": "MG-01"}, {"id": 2, "name": "Montura 02", "image": "assets/modelo-02.webp", "code": "MG-02"}, {"id": 3, "name": "Montura 03", "image": "assets/modelo-03.webp", "code": "MG-03"}, {"id": 4, "name": "Montura 04", "image": "assets/modelo-04.webp", "code": "MG-04"}, {"id": 5, "name": "Montura 05", "image": "assets/modelo-05.webp", "code": "MG-05"}, {"id": 6, "name": "Montura 06", "image": "assets/modelo-06.webp", "code": "MG-06"}, {"id": 7, "name": "Montura 07", "image": "assets/modelo-07.webp", "code": "MG-07"}, {"id": 8, "name": "Montura 08", "image": "assets/modelo-08.webp", "code": "MG-08"}, {"id": 9, "name": "Montura 09", "image": "assets/modelo-09.webp", "code": "MG-09"}, {"id": 10, "name": "Montura 10", "image": "assets/modelo-10.webp", "code": "MG-10"}, {"id": 11, "name": "Montura 11", "image": "assets/modelo-11.webp", "code": "MG-11"}, {"id": 12, "name": "Montura 12", "image": "assets/modelo-12.webp", "code": "MG-12"}, {"id": 13, "name": "Montura 13", "image": "assets/modelo-13.webp", "code": "MG-13"}, {"id": 14, "name": "Montura 14", "image": "assets/modelo-14.webp", "code": "MG-14"}, {"id": 15, "name": "Montura 15", "image": "assets/modelo-15.webp", "code": "MG-15"}, {"id": 16, "name": "Montura 16", "image": "assets/modelo-16.webp", "code": "MG-16"}, {"id": 17, "name": "Montura 17", "image": "assets/modelo-17.webp", "code": "MG-17"}, {"id": 18, "name": "Montura 18", "image": "assets/modelo-18.webp", "code": "MG-18"}, {"id": 19, "name": "Montura 19", "image": "assets/modelo-19.webp", "code": "MG-19"}, {"id": 20, "name": "Montura 20", "image": "assets/modelo-20.webp", "code": "MG-20"}, {"id": 21, "name": "Montura 21", "image": "assets/modelo-21.webp", "code": "MG-21"}, {"id": 22, "name": "Montura 22", "image": "assets/modelo-22.webp", "code": "MG-22"}, {"id": 23, "name": "Montura 23", "image": "assets/modelo-23.webp", "code": "MG-23"}, {"id": 24, "name": "Montura 24", "image": "assets/modelo-24.webp", "code": "MG-24"}, {"id": 25, "name": "Montura 25", "image": "assets/modelo-25.webp", "code": "MG-25"}, {"id": 26, "name": "Montura 26", "image": "assets/modelo-26.webp", "code": "MG-26"}, {"id": 27, "name": "Montura 27", "image": "assets/modelo-27.webp", "code": "MG-27"}, {"id": 28, "name": "Montura 28", "image": "assets/modelo-28.webp", "code": "MG-28"}, {"id": 29, "name": "Montura 29", "image": "assets/modelo-29.webp", "code": "MG-29"}, {"id": 30, "name": "Montura 30", "image": "assets/modelo-30.webp", "code": "MG-30"}, {"id": 31, "name": "Montura 31", "image": "assets/modelo-31.webp", "code": "MG-31"}, {"id": 32, "name": "Montura 32", "image": "assets/modelo-32.webp", "code": "MG-32"}, {"id": 33, "name": "Montura 33", "image": "assets/modelo-33.webp", "code": "MG-33"}, {"id": 34, "name": "Montura 34", "image": "assets/modelo-34.webp", "code": "MG-34"}, {"id": 35, "name": "Montura 35", "image": "assets/modelo-35.webp", "code": "MG-35"}, {"id": 36, "name": "Montura 36", "image": "assets/modelo-36.webp", "code": "MG-36"}, {"id": 37, "name": "Montura 37", "image": "assets/modelo-37.webp", "code": "MG-37"}, {"id": 38, "name": "Montura 38", "image": "assets/modelo-38.webp", "code": "MG-38"}, {"id": 39, "name": "Montura 39", "image": "assets/modelo-39.webp", "code": "MG-39"}, {"id": 40, "name": "Montura 40", "image": "assets/modelo-40.webp", "code": "MG-40"}, {"id": 41, "name": "Montura 41", "image": "assets/modelo-41.webp", "code": "MG-41"}, {"id": 42, "name": "Montura 42", "image": "assets/modelo-42.webp", "code": "MG-42"}, {"id": 43, "name": "Montura 43", "image": "assets/modelo-43.webp", "code": "MG-43"}, {"id": 44, "name": "Montura 44", "image": "assets/modelo-44.webp", "code": "MG-44"}, {"id": 45, "name": "Montura 45", "image": "assets/modelo-45.webp", "code": "MG-45"}, {"id": 46, "name": "Montura 46", "image": "assets/modelo-46.webp", "code": "MG-46"}, {"id": 47, "name": "Montura 47", "image": "assets/modelo-47.webp", "code": "MG-47"}, {"id": 48, "name": "Montura 48", "image": "assets/modelo-48.webp", "code": "MG-48"}, {"id": 49, "name": "Montura 49", "image": "assets/modelo-49.webp", "code": "MG-49"}, {"id": 50, "name": "Montura 50", "image": "assets/modelo-50.webp", "code": "MG-50"}, {"id": 51, "name": "Montura 51", "image": "assets/modelo-51.webp", "code": "MG-51"}, {"id": 52, "name": "Montura 52", "image": "assets/modelo-52.webp", "code": "MG-52"}, {"id": 53, "name": "Montura 53", "image": "assets/modelo-53.webp", "code": "MG-53"}, {"id": 54, "name": "Montura 54", "image": "assets/modelo-54.webp", "code": "MG-54"}, {"id": 55, "name": "Montura 55", "image": "assets/modelo-55.webp", "code": "MG-55"}, {"id": 56, "name": "Montura 56", "image": "assets/modelo-56.webp", "code": "MG-56"}, {"id": 57, "name": "Montura 57", "image": "assets/modelo-57.webp", "code": "MG-57"}, {"id": 58, "name": "Montura 58", "image": "assets/modelo-58.webp", "code": "MG-58"}, {"id": 59, "name": "Montura 59", "image": "assets/modelo-59.webp", "code": "MG-59"}, {"id": 60, "name": "Montura 60", "image": "assets/modelo-60.webp", "code": "MG-60"}, {"id": 61, "name": "Montura 61", "image": "assets/modelo-61.webp", "code": "MG-61"}, {"id": 62, "name": "Montura 62", "image": "assets/modelo-62.webp", "code": "MG-62"}, {"id": 63, "name": "Montura 63", "image": "assets/modelo-63.webp", "code": "MG-63"}, {"id": 64, "name": "Montura 64", "image": "assets/modelo-64.webp", "code": "MG-64"}, {"id": 65, "name": "Montura 65", "image": "assets/modelo-65.webp", "code": "MG-65"}, {"id": 66, "name": "Montura 66", "image": "assets/modelo-66.webp", "code": "MG-66"}, {"id": 67, "name": "Montura 67", "image": "assets/modelo-67.webp", "code": "MG-67"}, {"id": 68, "name": "Montura 68", "image": "assets/modelo-68.webp", "code": "MG-68"}, {"id": 69, "name": "Montura 69", "image": "assets/modelo-69.webp", "code": "MG-69"}, {"id": 70, "name": "Montura 70", "image": "assets/modelo-70.webp", "code": "MG-70"}, {"id": 71, "name": "Montura 71", "image": "assets/modelo-71.webp", "code": "MG-71"}, {"id": 72, "name": "Montura 72", "image": "assets/modelo-72.webp", "code": "MG-72"}, {"id": 73, "name": "Montura 73", "image": "assets/modelo-73.webp", "code": "MG-73"}, {"id": 74, "name": "Montura 74", "image": "assets/modelo-74.webp", "code": "MG-74"}, {"id": 75, "name": "Montura 75", "image": "assets/modelo-75.webp", "code": "MG-75"}, {"id": 76, "name": "Montura 76", "image": "assets/modelo-76.webp", "code": "MG-76"}, {"id": 77, "name": "Montura 77", "image": "assets/modelo-77.webp", "code": "MG-77"}, {"id": 78, "name": "Montura 78", "image": "assets/modelo-78.webp", "code": "MG-78"}, {"id": 79, "name": "Montura 79", "image": "assets/modelo-79.webp", "code": "MG-79"}, {"id": 80, "name": "Montura 80", "image": "assets/modelo-80.webp", "code": "MG-80"}];
+const grid=document.getElementById('grid'), search=document.getElementById('search'), sort=document.getElementById('sort'), count=document.getElementById('count'), empty=document.getElementById('empty');
+function render(){
+ let q=search.value.trim().toLowerCase();
+ let arr=products.filter(p=>(p.name+' '+p.code).toLowerCase().includes(q));
+ arr.sort((a,b)=>sort.value==='asc'?a.id-b.id:b.id-a.id);
+ count.textContent=`${arr.length} modelos`;
+ grid.innerHTML=arr.map(p=>`<article class="card" data-id="${p.id}">
+   <button class="product" aria-label="Ver ${p.name}">
+    <div class="image-wrap"><img src="${p.image}" alt="${p.name}" loading="lazy"><span class="zoom">Ver modelo ↗</span></div>
+    <div class="card-meta"><div><h3>${p.name}</h3><p>${p.code}</p></div><span class="number">${String(p.id).padStart(2,'0')}</span></div>
+   </button>
+ </article>`).join('');
+ empty.hidden=arr.length>0;
+ grid.querySelectorAll('.product').forEach(btn=>btn.addEventListener('click',()=>openModal(products.find(p=>p.id==btn.closest('.card').dataset.id))));
+}
+function openModal(p){
+ document.getElementById('modalImg').src=p.image;
+ document.getElementById('modalImg').alt=p.name;
+ document.getElementById('modalName').textContent=p.name;
+ document.getElementById('modalCode').textContent=p.code;
+ document.getElementById('modal').classList.add('show');
+ document.getElementById('modal').setAttribute('aria-hidden','false');
+ document.body.classList.add('locked');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');document.getElementById('modal').setAttribute('aria-hidden','true');document.body.classList.remove('locked');}
+search.addEventListener('input',render); sort.addEventListener('change',render);
+document.getElementById('close').addEventListener('click',closeModal);
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();
+</script>
+</body></html>
